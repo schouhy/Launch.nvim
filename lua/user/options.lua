@@ -52,3 +52,4 @@ vim.cmd [[set iskeyword+=-]]
 vim.g.netrw_banner = 0
 vim.g.netrw_mouse = 2
 
+vim.g.python3_host_prog = "$HOME/.virtualenvs/neovim312/bin/python"
