@@ -2,6 +2,7 @@ local M = {
   "nvim-neotest/neotest",
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
+    "antoinemadec/FixCursorHold.nvim",
     "nvim-neotest/nvim-nio",
     -- general tests
     "vim-test/vim-test",
@@ -21,9 +22,11 @@ function M.config()
   wk.register {
     ["<leader>tt"] = { "<cmd>lua require'neotest'.run.run()<cr>", "Test Nearest" },
     ["<leader>tf"] = { "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>", "Test File" },
+    ["<leader>tT"] = { "<cmd>lua require'neotest'.run.run({suite = true})<cr>", "Run Test Suite" },
     ["<leader>td"] = { "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", "Debug Test" },
     ["<leader>ts"] = { "<cmd>lua require('neotest').run.stop()<cr>", "Test Stop" },
     ["<leader>ta"] = { "<cmd>lua require('neotest').run.attach()<cr>", "Attach Test" },
+    ["<leader>tS"] = { "<cmd>lua require('neotest').summary.toggle()<cr>", "Toggle Test Summary" },
   }
 
   ---@diagnostic disable: missing-fields
