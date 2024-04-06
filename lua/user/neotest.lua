@@ -34,6 +34,8 @@ function M.config()
     adapters = {
       require "neotest-python" {
         dap = { justMyCode = false },
+        args = { "--log-level", "DEBUG", "--quiet"},
+        runner = "pytest",
       },
       require "neotest-vitest",
       require "neotest-zig",
