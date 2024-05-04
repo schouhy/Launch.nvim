@@ -14,9 +14,6 @@ local M = {
     "rouge8/neotest-rust",
     "lawrence-laz/neotest-zig",
     "rcasia/neotest-bash",
-    -- debugger support
-    "mfussenegger/nvim-dap",
-    "mfussenegger/nvim-dap-python",
   },
 }
 
@@ -32,16 +29,12 @@ function M.config()
     ["<leader>tS"] = { "<cmd>lua require('neotest').summary.toggle()<cr>", "Toggle Test Summary" },
   }
 
-  local mason_path = vim.fn.glob(vim.fn.stdpath "data" .. "/mason/")
-  require("dap-python").setup(mason_path .. "packages/debugpy/venv/bin/python")
-  require("dap-python").test_runner = "pytest"
-
   ---@diagnostic disable: missing-fields
   require("neotest").setup {
     adapters = {
       require "neotest-python" {
         dap = { justMyCode = false },
-        args = { "--log-level", "DEBUG", "--quiet"},
+        args = { "--log-level", "DEBUG", "--quiet" },
         runner = "pytest",
       },
       require "neotest-vitest",
