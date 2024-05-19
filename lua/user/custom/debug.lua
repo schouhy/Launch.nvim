@@ -3,6 +3,7 @@ local M = {
   dependencies = {
     "mfussenegger/nvim-dap",
     "rcarriga/nvim-dap-ui",
+    "theHamsta/nvim-dap-virtual-text",
     "nvim-neotest/nvim-nio",
     "williamboman/mason.nvim",
     "jay-babu/mason-nvim-dap.nvim",
@@ -24,6 +25,16 @@ function M.config()
   local mason_path = vim.fn.glob(vim.fn.stdpath "data" .. "/mason/")
   require("dap-python").setup(mason_path .. "packages/debugpy/venv/bin/python")
   require("dap-python").test_runner = "pytest"
+
+  require("nvim-dap-virtual-text").setup {
+    display_callback = function(variable)
+      if #variable.value > 15 then
+        return " " .. string.sub(variable.value, 1, 15) .. "..."
+      end
+
+      return " " .. variable.value
+    end,
+  }
 
   -- Basic debugging keymaps, feel free to change to your liking!
   vim.keymap.set("n", "<F5>", dap.continue, { desc = "Debug: Start/Continue" })
