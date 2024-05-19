@@ -19,6 +19,23 @@ function M.config()
   -- - sr)'  - [S]urround [R]eplace [)] [']
   require("mini.surround").setup()
 
+  -- Move via brackets
+  -- b buffer
+  -- c comment
+  -- x conflict marker
+  -- d diagnostic (overrides vim 0.10 default behavior?)
+  -- f file on disk
+  -- i indent change
+  -- j jump from jumplist inside current buffer
+  -- l location from location list
+  -- o old files
+  -- q quickfix entry from quickfix list
+  -- t treesitter node and parents
+  -- u undo states from specially tracked linear history
+  -- w window in current tab
+  -- y yank selection replacing latest put region
+  require("mini.bracketed").setup()
+
   -- ... and there is more!
   --  Check out: https://github.com/echasnovski/mini.nvim
 end
