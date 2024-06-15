@@ -26,10 +26,29 @@ M.on_attach = function(client, bufnr)
     vim.lsp.inlay_hint.enable(true, { bufnr })
   end
 
-  if client.name == "ruff_lsp" then
+  if client.name == "ruff" then
     -- Disable hover in favor of pyright
     client.server_capabilities.hoverProvider = false
   end
+
+  require("lspconfig").ruff.setup {
+    on_attach = M.on_attach,
+  }
+
+  require("lspconfig").pyright.setup {
+    settings = {
+      pyright = {
+        -- Using Ruff's import organizer
+        disableOrganizeImports = true,
+      },
+      python = {
+        analysis = {
+          -- Ignore all files for analysis to exclusively use Ruff for linting
+          ignore = { "*" },
+        },
+      },
+    },
+  }
 end
 
 function M.common_capabilities()
@@ -81,7 +100,7 @@ function M.config()
     "bashls",
     "jsonls",
     "yamlls",
-    "ruff_lsp",
+    "ruff",
   }
 
   local default_diagnostic_config = {

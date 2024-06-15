@@ -5,7 +5,6 @@ local M = {
   },
 }
 
-
 function M.config()
   local servers = {
     "lua_ls",
@@ -15,7 +14,7 @@ function M.config()
     "pyright",
     "bashls",
     "jsonls",
-    "ruff_lsp",
+    "ruff",
   }
 
   require("mason").setup {
