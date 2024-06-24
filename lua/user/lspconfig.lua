@@ -3,7 +3,7 @@ local M = {
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     {
-      "folke/neodev.nvim",
+      "folke/lazydev.nvim",
     },
   },
 }
@@ -26,13 +26,13 @@ M.on_attach = function(client, bufnr)
     vim.lsp.inlay_hint.enable(true, { bufnr })
   end
 
-  if client.name == "ruff" then
-    -- Disable hover in favor of pyright
-    client.server_capabilities.hoverProvider = false
-  end
-
   require("lspconfig").ruff.setup {
-    on_attach = M.on_attach,
+    on_attach = function(client, bufnr)
+      if client.name == "ruff" then
+        -- Disable hover in favor of pyright
+        client.server_capabilities.hoverProvider = false
+      end
+    end,
   }
 
   require("lspconfig").pyright.setup {
@@ -149,7 +149,7 @@ function M.config()
     end
 
     if server == "lua_ls" then
-      require("neodev").setup {}
+      require("lazydev").setup {}
     end
 
     lspconfig[server].setup(opts)
