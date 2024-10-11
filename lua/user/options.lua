@@ -68,4 +68,4 @@ if vim.fn.has "wsl" then
   }
 end
 
-vim.g.python3_host_prog = "$HOME/.virtualenvs/neovim312/bin/python"
+vim.g.python3_host_prog = "$HOME/.virtualenvs/neovim313/bin/python"
