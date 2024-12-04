@@ -8,20 +8,12 @@ local M = {
   },
 }
 
-local function lsp_keymaps(bufnr)
-  local opts = { noremap = true, silent = true }
-  local keymap = vim.api.nvim_buf_set_keymap
-  keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-  keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-  keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-  keymap(bufnr, "n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-  keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-  keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-end
+-- local function lsp_keymaps(bufnr)
+--   local opts = { noremap = true, silent = true }
+--   local keymap = vim.api.nvim_buf_set_keymap
+-- end
 
 M.on_attach = function(client, bufnr)
-  lsp_keymaps(bufnr)
-
   if client.supports_method "textDocument/inlayHint" then
     vim.lsp.inlay_hint.enable(true, { bufnr })
   end
@@ -49,6 +41,7 @@ M.on_attach = function(client, bufnr)
       },
     },
   }
+  -- lsp_keymaps(bufnr)
 end
 
 function M.common_capabilities()
@@ -65,6 +58,13 @@ end
 function M.config()
   local wk = require "which-key"
   wk.add {
+    { "gd", "<cmd>lua vim.lsp.buf.definition()<CR>" },
+    { "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>" },
+    { "gd", "<cmd>lua vim.lsp.buf.definition()<CR>" },
+    { "K", "<cmd>lua vim.lsp.buf.hover()<CR>" },
+    { "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>" },
+    { "gr", "<cmd>lua vim.lsp.buf.references()<CR>" },
+    { "gl", "<cmd>lua vim.diagnostic.open_float()<CR>" },
     { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code Action" },
     {
       "<leader>lf",
