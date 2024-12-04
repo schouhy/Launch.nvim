@@ -18,15 +18,6 @@ M.on_attach = function(client, bufnr)
     vim.lsp.inlay_hint.enable(true, { bufnr })
   end
 
-  require("lspconfig").ruff.setup {
-    on_attach = function(client, bufnr)
-      if client.name == "ruff" then
-        -- Disable hover in favor of pyright
-        client.server_capabilities.hoverProvider = false
-      end
-    end,
-  }
-
   require("lspconfig").pyright.setup {
     settings = {
       pyright = {
@@ -98,7 +89,6 @@ function M.config()
     "bashls",
     "jsonls",
     "yamlls",
-    "ruff",
   }
 
   local default_diagnostic_config = {
